@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YRB Nova Portfolio</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #111; /* default text stays black */
+    transition: background 0.3s, color 0.3s;
+  }
+
+  header, footer {
+    padding: 50px;
+    text-align: center;
+    background: #111;
+    color: white;
+  }
+
+  section {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+
+  h1, h2 {
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+
+  .block {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    margin-top: 30px;
+  }
+
+  .cta, .toggle {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background: #0077cc;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cta:hover, .toggle:hover {
+    animation: bounce 0.4s ease;
+  }
+
+  .cta.pulse, .toggle.pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .services li {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #111; /* stays black */
+  }
+
+  .landing {
+  background-color: #111;
+  padding: 40px;
+  width: 820px;
+  margin-left: -40px;
+  margin-top: -45px;
+  color: #f7f7f7;
+  text-align: center;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  position: relative; /* allow absolute positioning inside */
+  margin-bottom: 50px;
+}
+
+.landing h3 {
+  margin-top: 40px; /* push it down so nav sits above */
+}
+
+nav {
+  position: absolute;
+  top: 20px;
+  right: 1px;
+  margin-right: 50px;
+}
+
+nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #fffcfc;
+  font-weight: bold;
+}
+
+.dark-mode .landing{
+    background-color: #000 !important;
+}
+
+.dark-mode nav a {
+  color: #fffbfb;
+}
+
+.dark-mode .site-footer{
+    background-color: #000 !important;
+    color: #f7f7f7 !important;
+}
+
+
+nav a:hover{
+    color:#0077cc;
+    font-size: large;
+    transition: 1s;
+}
+
+.site-footer {
+  background-color: #111;
+  color: #f7f7f7;
+  text-align: center;
+  padding: 20px;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  width: 860px;
+  margin-left: -40px;
+  margin-bottom: -45px;
+    margin-top: 50px;
+
+
+}
+
+.dark-mode .site-footer {
+  background-color: #fff;
+  color: #000;
+}
+
+
+  .preview-box {
+    margin: 20px auto;
+    padding: 30px;
+    font-size: 1.5rem;
+    background: #0077cc;
+    color: white;
+    border-radius: 12px;
+    max-width: 500px;
+    transition: all 0.4s ease;
+    text-align: center;
+  }
+
+  .preview-text {
+    display: inline-block;
+    transition: transform 0.4s ease, opacity 0.4s ease, letter-spacing 0.4s ease;
+    color: #111; /* stays black */
+  }
+
+  .testimonial {
+    font-style: italic;
+    text-align: center;
+    font-size: 1.1rem;
+    opacity: 0.8;
+    color: #111; /* stays black */
+  }
+
+  .stat {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #111; /* stays black */
+  }
+
+  .gallery img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  .gallery figure {
+    margin: 30px 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .gallery figure.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gallery figcaption {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #111; /* stays black */
+    line-height: 1.4;
+  }
+
+  .tags {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tags span {
+    background: #0077cc;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal img {
+    max-width: 90%;
+    border-radius: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+    color: #111; /* stays black */
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #0077cc;
+    box-shadow: 0 0 8px rgba(0, 119, 204, 0.4);
+    transform: scale(1.02);
+  }
+
+  /* DARK MODE OVERRIDES */
+  .dark-mode {
+    background: #111;
+    color: #111; /* keep rest of text black */
+  }
+
+  /* Invert header/footer */
+  .dark-mode header,
+  .dark-mode footer {
+    background: #fff;
+    color: black;
+  }
+
+  /* Dark mode: force only the Projects heading to white */
+.dark-mode h2.pc {
+  color: white !important;
+}
+
+  /* Projects section forced white in dark mode */
+  .dark-mode .projects,
+  .dark-mode .projects h2,
+  .dark-mode .projects p,
+  .dark-mode .projects li,
+  .dark-mode .projects figcaption {
+    color: white !important;
+  }
+</style>
+  
+</head>
+<body>
+
+  <header>
+    <h1>YRB Nova</h1>
+    <p>Landing Page Developer | Fast, Clean, Conversion-Driven Designs</p>
+  </header>
+
+  <section>
+    <h2 class="pc">Mock Page</h2>
+    <div class="block">
+      
+        <div class="landing">
+  <nav class="navbar">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <h3>Fast Clean Cleaning</h3>
+</div>
+
+
+      <p><strong>Tagline:</strong> ✨ Your Home, Sparkling Clean in No Time!</p>
+      <ul class="services">
+        <li>🏠 Home Cleaning</li>
+        <li>🏢 Office Cleaning</li>
+        <li>🧼 Deep Cleaning</li>
+        <li>🚚 Move-In/Out Cleaning</li>
+      </ul>
+      <p style="text-align: center;">
+        <i>        A sleek, responsive landing page featuring a bold hero section, service highlights, and a clear call-to-action. Designed for fast loading and mobile-first engagement.
+ </i>
+      </p>
+      <a href="mailto:yourname@gmail.com?subject=Landing Page Inquiry&body=Hi YRB Nova, I’m interested in your landing page services." class="cta pulse">Contact Me</a>
+
+      <footer class="site-footer">
+  <p>&copy; 2025 Fast Clean Cleaning. All rights reserved.</p>
+</footer>
+
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Live Preview</h2>
+    <p>Hover below to see a smooth animation.</p>
+    <div class="preview-box"><span class="preview-text">Fast. Clean. Responsive.</span></div>
+  </section>
+
+  <section class="block">
+    <h2>Testimonials</h2>
+    <p class="testimonial" id="testimonial">"YRB Nova transformed our online presence — fast, clean, and effective!"</p>
+  </section>
+
+  <section class="block">
+    <h2>Stats</h2>
+    <p class="stat" id="projects">0 Projects Delivered</p>
+    <p class="stat" id="clients">0 Happy Clients</p>
+  </section>
+
+   <section class="block gallery">
+    <h2>Gallery</h2>
+
+    <figure>
+      <img src="https://i.postimg.cc/rwNLHtyt/portfolio-music-ss.png" alt="Music Portfolio Interface">
+      <figcaption>
+        Music Portfolio — A responsive showcase for original beats, designed to highlight visual branding and track previews
+      </figcaption>
+      <div class="tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>Responsive Design</span>
+      </div>
+    </figure>
+
+    <figure>
+      <img src="https://i.postimg.cc/PqBWgN51/charity.png" alt="Charity Donation Page">
+      <figcaption>
+        Charity Donation Page — Built to encourage donations with a clear call-to-action and embedded YouTube video integration
+      </figcaption>
+      <div class="tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+      </div>
+    </figure>
+
+    
+  </section>
+
+  <div class="modal" id="modal">
+    <img id="modal-img" src="" alt="Preview Image">
+  </div>
+
+  <section class="block contact-form">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit" class="cta pulse">Send Message</button>
+    </form>
+  </section>
+
+  <button class="toggle pulse">Toggle Dark Mode</button>
+
+  <footer>
+    © 2025 YRB Nova — Portfolio
+  </footer>
+<script>
+// Preview box hover animation
+const previewBox = document.querySelector('.preview-box');
+const previewText = document.querySelector('.preview-text');
+
+previewBox.addEventListener('mouseenter', () => {
+  previewBox.style.transform = 'scale(1.05)';
+  previewBox.style.background = '#005fa3';
+  previewBox.style.boxShadow = '0 0 20px rgba(0, 119, 204, 0.6)';
+  previewText.style.transform = 'translateY(-5px)';
+  previewText.style.opacity = '0.9';
+  previewText.style.letterSpacing = '1px';
+});
+
+previewBox.addEventListener('mouseleave', () => {
+  previewBox.style.transform = 'scale(1)';
+  previewBox.style.background = '#0077cc';
+  previewBox.style.boxShadow = 'none';
+  previewText.style.transform = 'translateY(0)';
+  previewText.style.opacity = '1';
+  previewText.style.letterSpacing = 'normal';
+});
+
+// Header animation on scroll
+const header = document.querySelector('header');
+function animateHeader() {
+  if (header.getBoundingClientRect().top < window.innerHeight - 50) {
+    header.style.transition = 'transform 0.5s ease';
+    header.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      header.style.transform = 'scale(1)';
+    }, 500);
+  }
+}
+
+// Stats animation on scroll
+const projectsEl = document.getElementById('projects');
+const clientsEl = document.getElementById('clients');
+let statsAnimating = false;
+
+function animateStats() {
+  const statsTop = projectsEl.parentElement.getBoundingClientRect().top;
+  if (statsTop < window.innerHeight - 50 && !statsAnimating) {
+    statsAnimating = true;
+    let projectCount = 0;
+    let clientCount = 0;
+    const projectTarget = 20;
+    const clientTarget = 15;
+
+    const interval = setInterval(() => {
+      if (projectCount < projectTarget) {
+        projectCount++;
+        projectsEl.textContent = `${projectCount} Projects Delivered`;
+      }
+      if (clientCount < clientTarget) {
+        clientCount++;
+        clientsEl.textContent = `${clientCount} Happy Clients`;
+      }
+      if (projectCount >= projectTarget && clientCount >= clientTarget) {
+        clearInterval(interval);
+        setTimeout(() => {
+          statsAnimating = false;
+        }, 1000);
+      }
+    }, 50);
+  }
+}
+
+// Gallery fade-in on scroll
+const galleryItems = document.querySelectorAll('.gallery figure');
+function animateGallery() {
+  galleryItems.forEach(item => {
+    const rect = item.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      item.classList.add('visible');
+    } else {
+      item.classList.remove('visible');
+    }
+  });
+}
+
+// Testimonial carousel
+const testimonials = [
+  '"YRB Nova transformed our online presence — fast, clean, and effective!"',
+  '"Professional, responsive, and visually stunning. Highly recommended!"',
+  '"Our landing page now converts better than ever — thanks to YRB!"'
+];
+let testimonialIndex = 0;
+setInterval(() => {
+  testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+  document.getElementById('testimonial').textContent = testimonials[testimonialIndex];
+}, 4000);
+
+// Modal logic
+function openModal(src) {
+  document.getElementById('modal-img').src = src;
+  document.getElementById('modal').style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+// Contact form validation
+function validateForm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  if (!name || !email || !message) {
+    alert('Please fill out all fields.');
+    return false;
+  }
+  if (!email.includes('@') || !email.includes('.')) {
+    alert('Please enter a valid email address.');
+    return false;
+  }
+  alert('Message sent successfully!');
+  return true;
+}
+
+// Dark mode toggle
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+}
+
+// Scroll listener
+document.addEventListener('scroll', () => {
+  animateHeader();
+  animateStats();
+  animateGallery();
+});
+
+
+document.querySelector('.toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+// Initial load
+window.addEventListener('load', () => {
+  animateGallery();
+});
+</script>
+
+</body>
+</html>
