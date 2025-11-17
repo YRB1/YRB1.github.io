@@ -1,219 +1,212 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YRB Nova Portfolio</title>
 
-<style>
-  /* Base Styles */
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    color: #111;
-    transition: background 0.3s, color 0.3s;
-  }
-
-  header, footer {
-    padding: 50px;
-    text-align: center;
-    background: #111;
-    color: white;
-  }
-
-  section {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 0 20px;
-  }
-
-  h1, h2 {
-    margin: 0 0 20px;
-    text-align: center;
-  }
-
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-
-  .block {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    margin-top: 30px;
-  }
-
-  .cta, .toggle {
-    display: block;
-    margin: 20px auto;
-    padding: 12px 20px;
-    background: #0077cc;
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    width: 200px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .cta:hover, .toggle:hover { animation: bounce 0.4s ease; }
-  .cta.pulse, .toggle.pulse { animation: pulse 2s ease-in-out infinite; }
-
-  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
-  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.04);} }
-
-  .services {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 10px;
-    margin: 20px 0;
-  }
-
-  .services li {
-    background: #f0f0f0;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 1rem;
-    color: #111;
-  }
-
-  /* Landing Section */
-  .landing {
-    background-color: #111;
-    padding: 40px 20px;
-    color: #f7f7f7;
-    text-align: center;
-    border-radius: 16px 16px 0 0;
-    position: relative;
-    margin-bottom: 50px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .landing h3 { margin-top: 60px; }
-
-  /* Navbar */
-  nav.navbar {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    padding: 0;
-    margin: 0;
-  }
-
-  .nav-links li a {
-    text-decoration: none;
-    color: #fffcfc;
-    font-weight: bold;
-  }
-
-  .nav-links li a:hover {
-    color: #0077cc;
-    transition: 0.3s;
-  }
-
-  .menu-toggle {
-    display: none;
-    background: #0077cc;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-
-  /* Preview, testimonial, stats, gallery, contact */
-  .preview-box { margin: 20px auto; padding: 30px; font-size:1.5rem; background:#0077cc; color:white; border-radius:12px; max-width:500px; transition: all 0.4s ease; text-align:center; }
-  .preview-text { display:inline-block; transition: transform 0.4s ease, opacity 0.4s ease, letter-spacing 0.4s ease; color:#111; }
-  .testimonial { font-style: italic; text-align: center; font-size: 1.1rem; opacity:0.8; color:#111; }
-  .stat { font-size: 2rem; font-weight: bold; text-align:center; color:#111; }
-  .gallery img { width:100%; max-width:300px; border-radius:8px; cursor:pointer; transition: transform 0.3s ease; }
-  .gallery img:hover { transform: scale(1.05); }
-  .gallery figure { margin:30px 0; text-align:center; opacity:0; transform:translateY(30px); transition:opacity 0.6s ease, transform 0.6s ease; }
-  .gallery figure.visible { opacity:1; transform:translateY(0); }
-  .gallery figcaption { margin-top:10px; font-size:0.95rem; color:#111; line-height:1.4; }
-  .tags { margin-top:10px; display:flex; justify-content:center; flex-wrap:wrap; gap:8px; }
-  .tags span { background:#0077cc; color:white; padding:6px 12px; border-radius:20px; font-size:0.85rem; white-space:nowrap; }
-
-  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-  .modal img { max-width:90%; border-radius:12px; }
-
-  .contact-form input, .contact-form textarea { width:100%; padding:10px; margin:10px 0; font-size:1rem; border-radius:6px; border:1px solid #ccc; transition: all 0.3s ease; color:#111; }
-  .contact-form input:focus, .contact-form textarea:focus { border-color:#0077cc; box-shadow:0 0 8px rgba(0,119,204,0.4); transform: scale(1.02); }
-
-  /* Footer */
-  .site-footer {
-    background-color: #111;
-    color:#f7f7f7;
-    text-align:center;
-    padding:20px;
-    border-radius:0 0 16px 16px;
-    width:100%;
-    box-sizing:border-box;
-    margin-bottom:0;
-  }
-
-  /* Dark Mode Overrides */
-  .dark-mode { background:#111; color:#111; }
-  .dark-mode header, .dark-mode footer { background:#fff; color:black; }
-  .dark-mode .landing { background-color:#000 !important; }
-  .dark-mode nav a { color:#fffbfb; }
-  .dark-mode .site-footer { background-color:#000 !important; color:#f7f7f7 !important; }
-  .dark-mode h2.pc, .dark-mode .projects, .dark-mode .projects h2, .dark-mode .projects p, .dark-mode .projects li, .dark-mode .projects figcaption { color:white !important; }
-
-  /* MOBILE RESPONSIVE */
-  @media (max-width: 768px) {
-    header, .block, .landing, .site-footer {
-      padding: 20px;
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #111;
+      transition: background 0.3s, color 0.3s;
     }
 
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    .block { padding: 20px; margin-top:20px; }
-    .services { grid-template-columns: 1fr; }
-    .gallery img { max-width:100%; }
-    .landing h3 { margin-top: 80px; font-size:1.5rem; }
+    header, footer {
+      padding: 50px;
+      text-align: center;
+      background: #111;
+      color: white;
+    }
 
-    nav.navbar {
-      position: relative;
+    section {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    h1, h2 {
+      margin: 0 0 20px;
       text-align: center;
     }
 
-    .menu-toggle {
-      display: inline-block;
-      margin-bottom: 10px;
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+
+    .block {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin-top: 30px;
+    }
+
+    .cta, .toggle {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 20px;
+      background: #0077cc;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta:hover, .toggle:hover { animation: bounce 0.4s ease; }
+    .cta.pulse, .toggle.pulse { animation: pulse 2s ease-in-out infinite; }
+
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+    @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.04);} }
+
+    .services {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .services li {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #111;
+    }
+
+    /* Landing Section */
+    .landing {
+      background-color: #111;
+      padding: 40px 20px;
+      color: #f7f7f7;
+      text-align: center;
+      border-radius: 16px 16px 0 0;
+      position: relative;
+      margin-bottom: 50px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .landing h3 { margin-top: 60px; }
+
+    /* Navbar */
+    nav.navbar {
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
 
     .nav-links {
-      flex-direction: column;
-      display: none;
-      width: 100%;
-      background: #111;
-      margin: 0;
+      list-style: none;
+      display: flex;
+      gap: 15px;
       padding: 0;
-      border-top: 1px solid #333;
+      margin: 0;
     }
 
-    .nav-links.show { display: flex; }
+    .nav-links li a {
+      text-decoration: none;
+      color: #fffcfc;
+      font-weight: bold;
+    }
 
-    .nav-links li { padding: 12px 0; }
-    .nav-links li a { font-size: 1rem; display:block; }
-  }
-</style>
+    .nav-links li a:hover {
+      color: #0077cc;
+      transition: 0.3s;
+    }
 
+    .menu-toggle {
+      display: none;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
 
-  
+    /* Preview, testimonial, stats, gallery, contact */
+    .preview-box { margin: 20px auto; padding: 30px; font-size:1.5rem; background:#0077cc; color:white; border-radius:12px; max-width:500px; transition: all 0.4s ease; text-align:center; }
+    .preview-text { display:inline-block; transition: transform 0.4s ease, opacity 0.4s ease, letter-spacing 0.4s ease; color:#111; }
+    .testimonial { font-style: italic; text-align: center; font-size: 1.1rem; opacity:0.8; color:#111; }
+    .stat { font-size: 2rem; font-weight: bold; text-align:center; color:#111; }
+    .gallery img { width:100%; max-width:300px; border-radius:8px; cursor:pointer; transition: transform 0.3s ease; }
+    .gallery img:hover { transform: scale(1.05); }
+    .gallery figure { margin:30px 0; text-align:center; opacity:0; transform:translateY(30px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .gallery figure.visible { opacity:1; transform:translateY(0); }
+    .gallery figcaption { margin-top:10px; font-size:0.95rem; color:#111; line-height:1.4; }
+    .tags { margin-top:10px; display:flex; justify-content:center; flex-wrap:wrap; gap:8px; }
+    .tags span { background:#0077cc; color:white; padding:6px 12px; border-radius:20px; font-size:0.85rem; white-space:nowrap; }
+
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+    .modal img { max-width:90%; border-radius:12px; }
+
+    .contact-form input, .contact-form textarea { width:100%; padding:10px; margin:10px 0; font-size:1rem; border-radius:6px; border:1px solid #ccc; transition: all 0.3s ease; color:#111; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color:#0077cc; box-shadow:0 0 8px rgba(0,119,204,0.4); transform: scale(1.02); }
+
+    /* Footer */
+    .site-footer {
+      background-color: #111;
+      color:#f7f7f7;
+      text-align:center;
+      padding:20px;
+      border-radius:0 0 16px 16px;
+      width:100%;
+      box-sizing:border-box;
+      margin-bottom:0;
+    }
+
+    /* Dark Mode Overrides */
+    .dark-mode { background:#111; color:#111; }
+    .dark-mode header, .dark-mode footer { background:#fff; color:black; }
+    .dark-mode .landing { background-color:#000 !important; }
+    .dark-mode nav a { color:#fffbfb; }
+    .dark-mode .site-footer { background-color:#000 !important; color:#f7f7f7 !important; }
+    .dark-mode h2.pc, .dark-mode .projects, .dark-mode .projects h2, .dark-mode .projects p, .dark-mode .projects li, .dark-mode .projects figcaption { color:white !important; }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+      header, .block, .landing, .site-footer { padding: 20px; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      .block { padding: 20px; margin-top:20px; }
+      .services { grid-template-columns: 1fr; }
+      .gallery img { max-width:100%; }
+      .landing h3 { margin-top: 80px; font-size:1.5rem; }
+
+      nav.navbar {
+        position: relative;
+        text-align: center;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        display: none;
+        width: 100%;
+        background: #111;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid #333;
+      }
+
+      .nav-links.show { display: flex; }
+
+      .nav-links li { padding: 12px 0; }
+      .nav-links li a { font-size: 1rem; display:block; }
+    }
+  </style>
 </head>
 <body>
 
@@ -222,23 +215,21 @@
     <p>Landing Page Developer | Fast, Clean, Conversion-Driven Designs</p>
   </header>
 
- <section>
-  <h2 class="pc">Mock Page</h2>
-  <div class="block">
-    <div class="landing">
-      <nav class="navbar">
-        <button class="menu-toggle">☰ Menu</button>
-        <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-
-  <h3>Fast Clean Cleaning</h3>
-</div>
-
+  <section>
+    <h2 class="pc">Mock Page</h2>
+    <div class="block">
+      <div class="landing">
+        <nav class="navbar">
+          <button class="menu-toggle">☰ Menu</button>
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <h3>Fast Clean Cleaning</h3>
+      </div>
 
       <p><strong>Tagline:</strong> ✨ Your Home, Sparkling Clean in No Time!</p>
       <ul class="services">
@@ -248,15 +239,9 @@
         <li>🚚 Move-In/Out Cleaning</li>
       </ul>
       <p style="text-align: center;">
-        <i>        A sleek, responsive landing page featuring a bold hero section, service highlights, and a clear call-to-action. Designed for fast loading and mobile-first engagement.
- </i>
+        <i>A sleek, responsive landing page featuring a bold hero section, service highlights, and a clear call-to-action. Designed for fast loading and mobile-first engagement.</i>
       </p>
-      <a href="mailto:yourname@gmail.com?subject=Landing Page Inquiry&body=Hi YRB Nova, I’m interested in your landing page services." class="cta pulse">Contact Me</a>
-
-      <footer class="site-footer">
-  <p>&copy; 2025 Fast Clean Cleaning. All rights reserved.</p>
-</footer>
-
+      <a href="#" class="cta pulse">Contact Me</a>
     </div>
   </section>
 
@@ -277,216 +262,158 @@
     <p class="stat" id="clients">0 Happy Clients</p>
   </section>
 
-   <section class="block gallery">
+  <section class="block gallery">
     <h2>Gallery</h2>
 
     <figure>
       <img src="https://i.postimg.cc/rwNLHtyt/portfolio-music-ss.png" alt="Music Portfolio Interface">
-      <figcaption>
-        Music Portfolio — A responsive showcase for original beats, designed to highlight visual branding and track previews
-      </figcaption>
+      <figcaption>Music Portfolio — A responsive showcase for original beats, designed to highlight visual branding and track previews</figcaption>
       <div class="tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>Responsive Design</span>
+        <span>HTML</span><span>CSS</span><span>Responsive Design</span>
       </div>
     </figure>
 
     <figure>
       <img src="https://i.postimg.cc/PqBWgN51/charity.png" alt="Charity Donation Page">
-      <figcaption>
-        Charity Donation Page — Built to encourage donations with a clear call-to-action and embedded YouTube video integration
-      </figcaption>
+      <figcaption>Charity Donation Page — Built to encourage donations with a clear call-to-action and embedded YouTube video integration</figcaption>
       <div class="tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
+        <span>HTML</span><span>CSS</span><span>JavaScript</span>
       </div>
     </figure>
 
     <figure>
-  <img src="https://i.postimg.cc/jjFPH9rC/kentros.png" alt="Kentros Project Screenshot">
-  <figcaption>
-    Kentros Project — Showcase of project/interface with responsive and clean design
-  </figcaption>
-  <div class="tags">
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>JavaScript</span>
-  </div>
-</figure>
-    
+      <img src="https://i.postimg.cc/jjFPH9rC/kentros.png" alt="Kentros Project Screenshot">
+      <figcaption>Kentros Project — Showcase of project/interface with responsive and clean design</figcaption>
+      <div class="tags">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+      </div>
+    </figure>
   </section>
 
   <div class="modal" id="modal">
     <img id="modal-img" src="" alt="Preview Image">
   </div>
 
+  <!-- Contact Form with Formspree -->
   <section class="block contact-form">
     <h2>Contact Me</h2>
-    <form>
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+    <form action="https://formspree.io/f/mldaypqv" method="POST" target="_blank">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
       <button type="submit" class="cta pulse">Send Message</button>
     </form>
   </section>
 
   <button class="toggle pulse">Toggle Dark Mode</button>
 
-  <footer>
+  <footer class="site-footer">
     © 2025 YRB Nova — Portfolio
   </footer>
 
   <script>
-// Preview box hover animation
-const previewBox = document.querySelector('.preview-box');
-const previewText = document.querySelector('.preview-text');
+    // Dark mode toggle
+    document.querySelector('.toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
 
-previewBox.addEventListener('mouseenter', () => {
-  previewBox.style.transform = 'scale(1.05)';
-  previewBox.style.background = '#005fa3';
-  previewBox.style.boxShadow = '0 0 20px rgba(0, 119, 204, 0.6)';
-  previewText.style.transform = 'translateY(-5px)';
-  previewText.style.opacity = '0.9';
-  previewText.style.letterSpacing = '1px';
-});
+    // Navbar toggle for mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
 
-previewBox.addEventListener('mouseleave', () => {
-  previewBox.style.transform = 'scale(1)';
-  previewBox.style.background = '#0077cc';
-  previewBox.style.boxShadow = 'none';
-  previewText.style.transform = 'translateY(0)';
-  previewText.style.opacity = '1';
-  previewText.style.letterSpacing = 'normal';
-});
+    // Preview box hover animation
+    const previewBox = document.querySelector('.preview-box');
+    const previewText = document.querySelector('.preview-text');
 
-// Header animation on scroll
-const header = document.querySelector('header');
-function animateHeader() {
-  if (header.getBoundingClientRect().top < window.innerHeight - 50) {
-    header.style.transition = 'transform 0.5s ease';
-    header.style.transform = 'scale(1.05)';
-    setTimeout(() => { header.style.transform = 'scale(1)'; }, 500);
-  }
-}
+    previewBox.addEventListener('mouseenter', () => {
+      previewBox.style.transform = 'scale(1.05)';
+      previewBox.style.background = '#005fa3';
+      previewBox.style.boxShadow = '0 0 20px rgba(0, 119, 204, 0.6)';
+      previewText.style.transform = 'translateY(-5px)';
+      previewText.style.opacity = '0.9';
+      previewText.style.letterSpacing = '1px';
+    });
 
-// Stats animation on scroll
-const projectsEl = document.getElementById('projects');
-const clientsEl = document.getElementById('clients');
-let statsAnimating = false;
+    previewBox.addEventListener('mouseleave', () => {
+      previewBox.style.transform = 'scale(1)';
+      previewBox.style.background = '#0077cc';
+      previewBox.style.boxShadow = 'none';
+      previewText.style.transform = 'translateY(0)';
+      previewText.style.opacity = '1';
+      previewText.style.letterSpacing = 'normal';
+    });
 
-function animateStats() {
-  if (!projectsEl || !clientsEl) return;
-  const statsTop = projectsEl.parentElement.getBoundingClientRect().top;
-  if (statsTop < window.innerHeight - 50 && !statsAnimating) {
-    statsAnimating = true;
-    let projectCount = 0;
-    let clientCount = 0;
-    const projectTarget = 20;
-    const clientTarget = 15;
+    // Stats animation on scroll
+    const projectsEl = document.getElementById('projects');
+    const clientsEl = document.getElementById('clients');
+    let statsAnimating = false;
 
-    const interval = setInterval(() => {
-      if (projectCount < projectTarget) {
-        projectCount++;
-        projectsEl.textContent = `${projectCount} Projects Delivered`;
+    function animateStats() {
+      const statsTop = projectsEl.parentElement.getBoundingClientRect().top;
+      if (statsTop < window.innerHeight - 50 && !statsAnimating) {
+        statsAnimating = true;
+        let projectCount = 0;
+        let clientCount = 0;
+        const projectTarget = 20;
+        const clientTarget = 15;
+
+        const interval = setInterval(() => {
+          if (projectCount < projectTarget) {
+            projectCount++;
+            projectsEl.textContent = `${projectCount} Projects Delivered`;
+          }
+          if (clientCount < clientTarget) {
+            clientCount++;
+            clientsEl.textContent = `${clientCount} Happy Clients`;
+          }
+          if (projectCount >= projectTarget && clientCount >= clientTarget) {
+            clearInterval(interval);
+            setTimeout(() => { statsAnimating = false; }, 1000);
+          }
+        }, 50);
       }
-      if (clientCount < clientTarget) {
-        clientCount++;
-        clientsEl.textContent = `${clientCount} Happy Clients`;
-      }
-      if (projectCount >= projectTarget && clientCount >= clientTarget) {
-        clearInterval(interval);
-        setTimeout(() => { statsAnimating = false; }, 1000);
-      }
-    }, 50);
-  }
-}
-
-// Gallery fade-in on scroll
-const galleryItems = document.querySelectorAll('.gallery figure');
-function animateGallery() {
-  galleryItems.forEach(item => {
-    const rect = item.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 50) {
-      item.classList.add('visible');
-    } else {
-      item.classList.remove('visible');
     }
-  });
-}
 
-// Testimonial carousel
-const testimonials = [
-  '"YRB Nova transformed our online presence — fast, clean, and effective!"',
-  '"Professional, responsive, and visually stunning. Highly recommended!"',
-  '"Our landing page now converts better than ever — thanks to YRB!"'
-];
-let testimonialIndex = 0;
-setInterval(() => {
-  testimonialIndex = (testimonialIndex + 1) % testimonials.length;
-  const testimonialEl = document.getElementById('testimonial');
-  if (testimonialEl) testimonialEl.textContent = testimonials[testimonialIndex];
-}, 4000);
+    // Gallery fade-in on scroll
+    const galleryItems = document.querySelectorAll('.gallery figure');
+    function animateGallery() {
+      galleryItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+          item.classList.add('visible');
+        } else {
+          item.classList.remove('visible');
+        }
+      });
+    }
 
-// Modal logic
-function openModal(src) {
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modal-img');
-  if(modal && modalImg) {
-    modalImg.src = src;
-    modal.style.display = 'flex';
-  }
-}
-function closeModal() {
-  const modal = document.getElementById('modal');
-  if(modal) modal.style.display = 'none';
-}
+    // Testimonial carousel
+    const testimonials = [
+      '"YRB Nova transformed our online presence — fast, clean, and effective!"',
+      '"Professional, responsive, and visually stunning. Highly recommended!"',
+      '"Our landing page now converts better than ever — thanks to YRB!"'
+    ];
+    let testimonialIndex = 0;
+    setInterval(() => {
+      testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+      document.getElementById('testimonial').textContent = testimonials[testimonialIndex];
+    }, 4000);
 
-// Contact form validation
-function validateForm() {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const message = document.getElementById('message').value.trim();
-  if (!name || !email || !message) {
-    alert('Please fill out all fields.');
-    return false;
-  }
-  if (!email.includes('@') || !email.includes('.')) {
-    alert('Please enter a valid email address.');
-    return false;
-  }
-  alert('Message sent successfully!');
-  return true;
-}
+    // Scroll listener
+    document.addEventListener('scroll', () => {
+      animateStats();
+      animateGallery();
+    });
 
-// Dark mode toggle
-document.querySelector('.toggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-});
+    // Initial load
+    window.addEventListener('load', () => {
+      animateGallery();
+    });
 
-// Mobile nav toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-if(menuToggle && navLinks) {
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-  });
-}
-
-// Scroll listener
-document.addEventListener('scroll', () => {
-  animateHeader();
-  animateStats();
-  animateGallery();
-});
-
-// Initial load
-window.addEventListener('load', () => {
-  animateGallery();
-});
-</script>
-
+  </script>
 
 </body>
 </html>
